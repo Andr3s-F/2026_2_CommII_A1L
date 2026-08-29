@@ -20,12 +20,12 @@ from PyQt5 import Qt
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
-import laboratorio2_epy_block_0 as epy_block_0  # embedded python block
+import acumulador_epy_block_0 as epy_block_0  # embedded python block
 import sip
 
 
 
-class laboratorio2(gr.top_block, Qt.QWidget):
+class acumulador(gr.top_block, Qt.QWidget):
 
     def __init__(self):
         gr.top_block.__init__(self, "Not titled yet", catch_exceptions=True)
@@ -48,7 +48,7 @@ class laboratorio2(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "laboratorio2")
+        self.settings = Qt.QSettings("GNU Radio", "acumulador")
 
         try:
             geometry = self.settings.value("geometry")
@@ -128,7 +128,7 @@ class laboratorio2(gr.top_block, Qt.QWidget):
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "laboratorio2")
+        self.settings = Qt.QSettings("GNU Radio", "acumulador")
         self.settings.setValue("geometry", self.saveGeometry())
         self.stop()
         self.wait()
@@ -146,7 +146,7 @@ class laboratorio2(gr.top_block, Qt.QWidget):
 
 
 
-def main(top_block_cls=laboratorio2, options=None):
+def main(top_block_cls=acumulador, options=None):
 
     qapp = Qt.QApplication(sys.argv)
 
