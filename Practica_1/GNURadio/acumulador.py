@@ -6,7 +6,7 @@
 #
 # GNU Radio Python Flow Graph
 # Title: Not titled yet
-# GNU Radio version: 3.10.9.2
+# GNU Radio version: 3.10.12.0
 
 from PyQt5 import Qt
 from gnuradio import qtgui
@@ -22,6 +22,7 @@ from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
 import acumulador_epy_block_0 as epy_block_0  # embedded python block
 import sip
+import threading
 
 
 
@@ -48,7 +49,7 @@ class acumulador(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "acumulador")
+        self.settings = Qt.QSettings("gnuradio/flowgraphs", "acumulador")
 
         try:
             geometry = self.settings.value("geometry")
@@ -56,6 +57,7 @@ class acumulador(gr.top_block, Qt.QWidget):
                 self.restoreGeometry(geometry)
         except BaseException as exc:
             print(f"Qt GUI: Could not restore geometry: {str(exc)}", file=sys.stderr)
+        self.flowgraph_started = threading.Event()
 
         ##################################################
         # Variables
@@ -128,7 +130,7 @@ class acumulador(gr.top_block, Qt.QWidget):
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "acumulador")
+        self.settings = Qt.QSettings("gnuradio/flowgraphs", "acumulador")
         self.settings.setValue("geometry", self.saveGeometry())
         self.stop()
         self.wait()
@@ -153,6 +155,7 @@ def main(top_block_cls=acumulador, options=None):
     tb = top_block_cls()
 
     tb.start()
+    tb.flowgraph_started.set()
 
     tb.show()
 

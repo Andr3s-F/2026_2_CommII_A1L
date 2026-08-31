@@ -11,7 +11,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: estadistica
+    id: filtrado_promediado
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -22,7 +22,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: Not titled yet
+    title: Aplicacion Practica - Canal AWGN
     window_size: (1000,1000)
   states:
     bus_sink: false
@@ -33,6 +33,48 @@ options:
     state: enabled
 
 blocks:
+- name: N_prom
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Muestras a promediar (N)
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '2'
+    step: '2'
+    stop: '64'
+    value: '64'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [488, 24.0]
+    rotation: 0
+    state: enabled
+- name: amp_ruido
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Nivel de Ruido (Sigma)
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '0.05'
+    stop: '2'
+    value: '0.5'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [288, 8.0]
+    rotation: 0
+    state: enabled
 - name: samp_rate
   id: variable
   parameters:
@@ -43,6 +85,66 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [184, 12]
+    rotation: 0
+    state: enabled
+- name: analog_noise_source_x_0
+  id: analog_noise_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: amp_ruido
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    noise_type: analog.GR_GAUSSIAN
+    seed: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [64, 312.0]
+    rotation: 0
+    state: enabled
+- name: analog_sig_source_x_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: ''
+    freq: '200'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
+    showports: 'False'
+    type: float
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [40, 176.0]
+    rotation: 0
+    state: enabled
+- name: blocks_add_xx_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [320, 232.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle2_0
@@ -63,111 +165,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [512, 40.0]
-    rotation: 0
-    state: enabled
-- name: blocks_throttle2_0_0
-  id: blocks_throttle2
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    ignoretag: 'True'
-    limit: auto
-    maximum: '0.1'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    samples_per_second: samp_rate
-    type: float
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [512, 152.0]
-    rotation: 0
-    state: enabled
-- name: blocks_throttle2_0_1
-  id: blocks_throttle2
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    ignoretag: 'True'
-    limit: auto
-    maximum: '0.1'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    samples_per_second: samp_rate
-    type: float
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [512, 248.0]
-    rotation: 0
-    state: enabled
-- name: blocks_throttle2_0_2
-  id: blocks_throttle2
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    ignoretag: 'True'
-    limit: auto
-    maximum: '0.1'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    samples_per_second: samp_rate
-    type: float
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [512, 344.0]
-    rotation: 0
-    state: enabled
-- name: blocks_throttle2_0_3
-  id: blocks_throttle2
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    ignoretag: 'True'
-    limit: auto
-    maximum: '0.1'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    samples_per_second: samp_rate
-    type: float
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [512, 440.0]
-    rotation: 0
-    state: enabled
-- name: blocks_vector_source_x_0
-  id: blocks_vector_source_x
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    repeat: 'True'
-    tags: '[]'
-    type: float
-    vector: (1, 2, -1)
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [72, 184.0]
+    coordinate: [456, 216.0]
     rotation: 0
     state: enabled
 - name: epy_block_0
@@ -212,7 +210,154 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [216, 144.0]
+    coordinate: [744, 416.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_0_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nBloque de desviacion estandar (una sola salida).\nUsa la\
+      \ identidad sigma^2 = E[x^2] - (E[x])^2\n\"\"\"\n\nimport numpy as np\nfrom\
+      \ gnuradio import gr\n\n\nclass blk(gr.sync_block):\n    \"\"\"Desviacion estandar\
+      \ acumulada\"\"\"\n\n    def __init__(self):\n        gr.sync_block.__init__(\n\
+      \            self,\n            name='Desviacion_Despues',\n            in_sig=[np.float32],\n\
+      \            out_sig=[np.float32]\n        )\n        self.acum_anterior = 0.0\n\
+      \        self.acum_anterior1 = 0.0\n        self.Ntotales = 0\n\n    def work(self,\
+      \ input_items, output_items):\n        x = input_items[0]\n        y0 = output_items[0]\
+      \   # Desviacion estandar\n\n        N = len(x)\n        if N > 0:\n       \
+      \     self.Ntotales += N\n\n            acumulado = self.acum_anterior + np.cumsum(x)\n\
+      \            self.acum_anterior = acumulado[-1]\n            media = acumulado\
+      \ / self.Ntotales\n\n            x2 = np.multiply(x, x)\n            acumulado1\
+      \ = self.acum_anterior1 + np.cumsum(x2)\n            self.acum_anterior1 = acumulado1[-1]\n\
+      \            media_cuad = acumulado1 / self.Ntotales\n\n            y0[:] =\
+      \ np.sqrt(np.maximum(media_cuad - media ** 2, 0.0))\n\n        return len(x)"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Desviacion_Despues', 'blk', [], [('0', 'float', 1)], [('0', 'float',
+      1)], 'Desviacion estandar acumulada', [])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1160, 96.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    N: N_prom
+    _source_code: "import numpy as np\nfrom gnuradio import gr\n\n\nclass blk(gr.sync_block):\n\
+      \    \"\"\"Promediador movil de N muestras\"\"\"\n\n    def __init__(self, N=16):\n\
+      \        gr.sync_block.__init__(\n            self,\n            name='Promediador_Movil',\n\
+      \            in_sig=[np.float32],\n            out_sig=[np.float32]\n      \
+      \  )\n        self.N = int(N)\n        # set_history pide N-1 muestras del bloque\
+      \ anterior,\n        # para que la ventana no se corte entre llamadas a work().\n\
+      \        self.set_history(self.N)\n\n    def work(self, input_items, output_items):\n\
+      \        x = input_items[0]\n        y0 = output_items[0]\n        ventana =\
+      \ np.ones(self.N) / self.N\n        y0[:] = np.convolve(x, ventana, mode='valid')\n\
+      \        return len(y0)"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Promediador_Movil', 'blk', [('N', '16')], [('0', 'float', 1)], [('0',
+      'float', 1)], 'Promediador movil de N muestras', ['N'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [760, 336.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_histogram_sink_x_0
+  id: qtgui_histogram_sink_x
+  parameters:
+    accum: 'False'
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    bins: '100'
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    grid: 'False'
+    gui_hint: ''
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '1'
+    size: '1024'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    xmax: '3'
+    xmin: '-3'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [752, 184.0]
     rotation: 0
     state: enabled
 - name: qtgui_number_sink_0_0
@@ -275,7 +420,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [664, 16.0]
+    coordinate: [1128, 160.0]
     rotation: 0
     state: enabled
 - name: qtgui_number_sink_0_1
@@ -338,7 +483,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [664, 128.0]
+    coordinate: [1128, 272.0]
     rotation: 0
     state: enabled
 - name: qtgui_number_sink_0_2
@@ -401,7 +546,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [664, 224.0]
+    coordinate: [1128, 368.0]
     rotation: 0
     state: enabled
 - name: qtgui_number_sink_0_3
@@ -464,7 +609,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [664, 320.0]
+    coordinate: [1128, 464.0]
     rotation: 0
     state: enabled
 - name: qtgui_number_sink_0_4
@@ -507,9 +652,9 @@ blocks:
     label7: ''
     label8: ''
     label9: ''
-    max: '1'
+    max: '3'
     min: '-1'
-    name: '"Desviacion Estandar"'
+    name: '"Desviacion Estandar Antes"'
     nconnections: '1'
     type: float
     unit1: ''
@@ -527,22 +672,186 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [664, 416.0]
+    coordinate: [1128, 560.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_number_sink_0_4_0
+  id: qtgui_number_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    autoscale: 'False'
+    avg: '0'
+    color1: ("black", "black")
+    color10: ("black", "black")
+    color2: ("black", "black")
+    color3: ("black", "black")
+    color4: ("black", "black")
+    color5: ("black", "black")
+    color6: ("black", "black")
+    color7: ("black", "black")
+    color8: ("black", "black")
+    color9: ("black", "black")
+    comment: ''
+    factor1: '1'
+    factor10: '1'
+    factor2: '1'
+    factor3: '1'
+    factor4: '1'
+    factor5: '1'
+    factor6: '1'
+    factor7: '1'
+    factor8: '1'
+    factor9: '1'
+    graph_type: qtgui.NUM_GRAPH_HORIZ
+    gui_hint: ''
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    max: '3'
+    min: '-1'
+    name: '"Desviacion Estandar Despues"'
+    nconnections: '1'
+    type: float
+    unit1: ''
+    unit10: ''
+    unit2: ''
+    unit3: ''
+    unit4: ''
+    unit5: ''
+    unit6: ''
+    unit7: ''
+    unit8: ''
+    unit9: ''
+    update_time: '0.10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1392, 8.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: magenta
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: "Se\xF1al ruidosa"
+    label10: Signal 10
+    label2: "Se\xF1al promediada"
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '2'
+    size: '1024'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '3'
+    ymin: '-3'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [960, 8.0]
     rotation: 0
     state: enabled
 
 connections:
-- [blocks_throttle2_0, '0', qtgui_number_sink_0_0, '0']
-- [blocks_throttle2_0_0, '0', qtgui_number_sink_0_1, '0']
-- [blocks_throttle2_0_1, '0', qtgui_number_sink_0_2, '0']
-- [blocks_throttle2_0_2, '0', qtgui_number_sink_0_3, '0']
-- [blocks_throttle2_0_3, '0', qtgui_number_sink_0_4, '0']
-- [blocks_vector_source_x_0, '0', epy_block_0, '0']
-- [epy_block_0, '0', blocks_throttle2_0, '0']
-- [epy_block_0, '1', blocks_throttle2_0_0, '0']
-- [epy_block_0, '2', blocks_throttle2_0_1, '0']
-- [epy_block_0, '3', blocks_throttle2_0_2, '0']
-- [epy_block_0, '4', blocks_throttle2_0_3, '0']
+- [analog_noise_source_x_0, '0', blocks_add_xx_0, '1']
+- [analog_sig_source_x_0, '0', blocks_add_xx_0, '0']
+- [blocks_add_xx_0, '0', blocks_throttle2_0, '0']
+- [blocks_throttle2_0, '0', epy_block_0, '0']
+- [blocks_throttle2_0, '0', epy_block_1, '0']
+- [blocks_throttle2_0, '0', qtgui_histogram_sink_x_0, '0']
+- [blocks_throttle2_0, '0', qtgui_time_sink_x_0, '0']
+- [epy_block_0, '0', qtgui_number_sink_0_0, '0']
+- [epy_block_0, '1', qtgui_number_sink_0_1, '0']
+- [epy_block_0, '2', qtgui_number_sink_0_2, '0']
+- [epy_block_0, '3', qtgui_number_sink_0_3, '0']
+- [epy_block_0, '4', qtgui_number_sink_0_4, '0']
+- [epy_block_0_0, '0', qtgui_number_sink_0_4_0, '0']
+- [epy_block_1, '0', epy_block_0_0, '0']
+- [epy_block_1, '0', qtgui_time_sink_x_0, '1']
 
 metadata:
   file_format: 1

@@ -63,7 +63,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [576, 280.0]
+    coordinate: [440, 160.0]
     rotation: 0
     state: enabled
 - name: blocks_vector_source_x_0
@@ -83,7 +83,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 272.0]
+    coordinate: [40, 152.0]
     rotation: 0
     state: enabled
 - name: epy_block_0
@@ -114,7 +114,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [432, 296.0]
+    coordinate: [296, 176.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -211,7 +211,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [768, 272.0]
+    coordinate: [632, 152.0]
     rotation: 0
     state: enabled
 
@@ -222,4 +222,4 @@ connections:
 
 metadata:
   file_format: 1
-  grc_version: 3.10.9.2
+  grc_version: 3.10.12.0

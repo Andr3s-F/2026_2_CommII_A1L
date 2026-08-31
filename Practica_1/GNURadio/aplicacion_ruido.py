@@ -7,7 +7,7 @@
 # GNU Radio Python Flow Graph
 # Title: Aplicacion Practica - Canal AWGN
 # Author: lizaness
-# GNU Radio version: 3.10.9.2
+# GNU Radio version: 3.10.12.0
 
 from PyQt5 import Qt
 from gnuradio import qtgui
@@ -25,6 +25,7 @@ from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
 import aplicacion_ruido_epy_block_0 as epy_block_0  # embedded python block
 import sip
+import threading
 
 
 
@@ -51,7 +52,7 @@ class aplicacion_ruido(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "aplicacion_ruido")
+        self.settings = Qt.QSettings("gnuradio/flowgraphs", "aplicacion_ruido")
 
         try:
             geometry = self.settings.value("geometry")
@@ -59,6 +60,7 @@ class aplicacion_ruido(gr.top_block, Qt.QWidget):
                 self.restoreGeometry(geometry)
         except BaseException as exc:
             print(f"Qt GUI: Could not restore geometry: {str(exc)}", file=sys.stderr)
+        self.flowgraph_started = threading.Event()
 
         ##################################################
         # Variables
@@ -304,7 +306,7 @@ class aplicacion_ruido(gr.top_block, Qt.QWidget):
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "aplicacion_ruido")
+        self.settings = Qt.QSettings("gnuradio/flowgraphs", "aplicacion_ruido")
         self.settings.setValue("geometry", self.saveGeometry())
         self.stop()
         self.wait()
@@ -336,6 +338,7 @@ def main(top_block_cls=aplicacion_ruido, options=None):
     tb = top_block_cls()
 
     tb.start()
+    tb.flowgraph_started.set()
 
     tb.show()
 
