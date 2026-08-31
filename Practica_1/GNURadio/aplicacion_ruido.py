@@ -66,13 +66,13 @@ class aplicacion_ruido(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.samp_rate = samp_rate = 32000
-        self.amp_ruido = amp_ruido = 0.5
+        self.amp_ruido = amp_ruido = 0.25
 
         ##################################################
         # Blocks
         ##################################################
 
-        self._amp_ruido_range = qtgui.Range(0, 2, 0.05, 0.5, 200)
+        self._amp_ruido_range = qtgui.Range(0, 2, 0.05, 0.25, 200)
         self._amp_ruido_win = qtgui.RangeWidget(self._amp_ruido_range, self.set_amp_ruido, "Nivel de Ruido (Sigma)", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._amp_ruido_win)
         self.qtgui_number_sink_0_4 = qtgui.number_sink(
