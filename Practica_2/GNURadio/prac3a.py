@@ -7,7 +7,7 @@
 # GNU Radio Python Flow Graph
 # Title: Not titled yet
 # Author: radiogis_director
-# GNU Radio version: 3.10.9.2
+# GNU Radio version: 3.10.12.0
 
 from PyQt5 import Qt
 from gnuradio import qtgui
@@ -28,6 +28,7 @@ from gnuradio import eng_notation
 import numpy as np
 import prac3a_epy_block_0 as epy_block_0  # embedded python block
 import sip
+import threading
 
 
 
@@ -54,7 +55,7 @@ class prac3a(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "prac3a")
+        self.settings = Qt.QSettings("gnuradio/flowgraphs", "prac3a")
 
         try:
             geometry = self.settings.value("geometry")
@@ -62,6 +63,7 @@ class prac3a(gr.top_block, Qt.QWidget):
                 self.restoreGeometry(geometry)
         except BaseException as exc:
             print(f"Qt GUI: Could not restore geometry: {str(exc)}", file=sys.stderr)
+        self.flowgraph_started = threading.Event()
 
         ##################################################
         # Variables
@@ -271,7 +273,7 @@ class prac3a(gr.top_block, Qt.QWidget):
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "prac3a")
+        self.settings = Qt.QSettings("gnuradio/flowgraphs", "prac3a")
         self.settings.setValue("geometry", self.saveGeometry())
         self.stop()
         self.wait()
@@ -319,6 +321,7 @@ class prac3a(gr.top_block, Qt.QWidget):
         self.N = N
         self.blocks_multiply_const_vxx_1.set_k([1/(self.N*self.samp_rate)]*self.N)
         self.epy_block_0.N = self.N
+        self.fft_vxx_0.set_window([1]*self.N)
         self.qtgui_vector_sink_f_0.set_x_axis((-self.samp_rate/2), (self.samp_rate/self.N))
 
 
@@ -331,6 +334,7 @@ def main(top_block_cls=prac3a, options=None):
     tb = top_block_cls()
 
     tb.start()
+    tb.flowgraph_started.set()
 
     tb.show()
 
