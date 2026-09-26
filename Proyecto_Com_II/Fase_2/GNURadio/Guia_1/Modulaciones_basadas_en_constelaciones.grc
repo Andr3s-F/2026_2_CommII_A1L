@@ -121,7 +121,7 @@ blocks:
   id: variable
   parameters:
     comment: Cambie esta tabla para OOK ASK BPSK QPSK 8PSK o 16QAM
-    value: (0+0j, 1+0j)
+    value: (-1+0j, 1+0j)
   states:
     bus_sink: false
     bus_source: false
@@ -251,7 +251,7 @@ blocks:
     alpha7: '1.0'
     alpha8: '1.0'
     alpha9: '1.0'
-    autoscale: 'True'
+    autoscale: 'False'
     axislabels: 'True'
     color1: '"blue"'
     color10: '"dark blue"'
@@ -317,10 +317,10 @@ blocks:
     width7: '1'
     width8: '1'
     width9: '1'
-    xmax: '2'
-    xmin: '-2'
-    ymax: '2'
-    ymin: '-2'
+    xmax: '5'
+    xmin: '-5'
+    ymax: '5'
+    ymin: '-5'
   states:
     bus_sink: false
     bus_source: false
@@ -464,7 +464,7 @@ blocks:
     marker9: '-1'
     name: '"Envolvente compleja"'
     nconnections: '1'
-    size: '2048'
+    size: '2000'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -496,8 +496,8 @@ blocks:
     width8: '1'
     width9: '1'
     ylabel: Amplitude
-    ymax: '2'
-    ymin: '-2'
+    ymax: '5'
+    ymin: '-5'
     yunit: '""'
   states:
     bus_sink: false

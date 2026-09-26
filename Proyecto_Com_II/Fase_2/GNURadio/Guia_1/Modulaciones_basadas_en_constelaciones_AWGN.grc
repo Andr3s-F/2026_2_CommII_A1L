@@ -115,10 +115,10 @@ blocks:
     orient: QtCore.Qt.Horizontal
     rangeType: float
     start: '0'
-    step: '0.01'
-    stop: '0.5'
+    step: '0.001'
+    stop: '2.5'
     value: '0.10'
-    widget: counter_slider
+    widget: counter
   states:
     bus_sink: false
     bus_source: false
@@ -142,7 +142,8 @@ blocks:
   id: variable
   parameters:
     comment: Cambie esta tabla para OOK ASK BPSK QPSK 8PSK o 16QAM
-    value: (0+0j, 1+0j)
+    value: (-3-3j, -3-1j, -3+3j, -3+1j, -1-3j, -1-1j, -1+3j, -1+1j, 3-3j, 3-1j, 3+3j,
+      3+1j, 1-3j, 1-1j, 1+3j, 1+1j)
   states:
     bus_sink: false
     bus_source: false
@@ -309,7 +310,7 @@ blocks:
     alpha7: '1.0'
     alpha8: '1.0'
     alpha9: '1.0'
-    autoscale: 'True'
+    autoscale: 'False'
     axislabels: 'True'
     color1: '"blue"'
     color10: '"dark blue"'
@@ -375,10 +376,10 @@ blocks:
     width7: '1'
     width8: '1'
     width9: '1'
-    xmax: '2'
-    xmin: '-2'
-    ymax: '2'
-    ymin: '-2'
+    xmax: '8'
+    xmin: '-8'
+    ymax: '8'
+    ymin: '-8'
   states:
     bus_sink: false
     bus_source: false
@@ -497,7 +498,7 @@ blocks:
     comment: ''
     ctrlpanel: 'False'
     entags: 'True'
-    grid: 'True'
+    grid: 'False'
     gui_hint: ''
     label1: I
     label10: Signal 10
@@ -522,7 +523,7 @@ blocks:
     marker9: '-1'
     name: '"Envolvente compleja Rx"'
     nconnections: '1'
-    size: '2048'
+    size: '2000'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -554,8 +555,8 @@ blocks:
     width8: '1'
     width9: '1'
     ylabel: Amplitude
-    ymax: '2'
-    ymin: '-2'
+    ymax: '8'
+    ymin: '-8'
     yunit: '""'
   states:
     bus_sink: false
