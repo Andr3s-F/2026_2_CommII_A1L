@@ -121,7 +121,8 @@ blocks:
   id: variable
   parameters:
     comment: Cambie esta tabla para OOK ASK BPSK QPSK 8PSK o 16QAM
-    value: (-1+0j, 1+0j)
+    value: (-3-3j, -3-1j, -3+3j, -3+1j, -1-3j, -1-1j, -1+3j, -1+1j, 3-3j, 3-1j, 3+3j,
+      3+1j, 1-3j, 1-1j, 1+3j, 1+1j)
   states:
     bus_sink: false
     bus_source: false

@@ -165,7 +165,7 @@ blocks:
     marker9: '-1'
     name: "\"Frecuencia instant\xE1nea\""
     nconnections: '1'
-    size: '4096'
+    size: '1600'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -434,7 +434,7 @@ blocks:
     marker9: '-1'
     name: '"Envolvente compleja FSK"'
     nconnections: '1'
-    size: '4096'
+    size: '1600'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
